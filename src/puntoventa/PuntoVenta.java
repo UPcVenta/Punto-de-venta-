@@ -11,7 +11,7 @@ import java.sql.*;
  * @author Usuario
  */
 public class PuntoVenta {
-   
+   //jsjsjj
    Connection conectar = null;
    public Connection conexion(){
        try{

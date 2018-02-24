@@ -24,9 +24,6 @@ public class CrearUser extends javax.swing.JFrame {
      */
     public CrearUser() {
         initComponents();
-        ImageIcon imagen1=new ImageIcon(getClass().getResource("/Imagenes/fon.jpg"));
-        ImageIcon fondo1=new ImageIcon(imagen1.getImage().getScaledInstance(Fondo.getWidth(), Fondo.getHeight(), Image.SCALE_DEFAULT));
-        Fondo.setIcon(fondo1);
         //
     }
 
@@ -49,36 +46,31 @@ public class CrearUser extends javax.swing.JFrame {
         Codigo = new javax.swing.JLabel();
         CodigoU = new javax.swing.JPasswordField();
         Crear = new javax.swing.JButton();
-        Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 500));
         setSize(new java.awt.Dimension(400, 500));
 
         Titulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        Titulo.setForeground(new java.awt.Color(255, 255, 255));
+        Titulo.setForeground(new java.awt.Color(0, 102, 102));
         Titulo.setText("Crear Usuarios");
 
         Nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Nombre.setForeground(new java.awt.Color(255, 255, 255));
         Nombre.setText("Nombre:");
 
         NomU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         Contraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Contraseña.setForeground(new java.awt.Color(255, 255, 255));
         Contraseña.setText("Contraseña:");
 
         ContraU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         ConContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        ConContraseña.setForeground(new java.awt.Color(255, 255, 255));
         ConContraseña.setText("Confirmar Contraseña:");
 
         ConContraU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         Codigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Codigo.setForeground(new java.awt.Color(255, 255, 255));
         Codigo.setText("Codigo Administrador:");
 
         CodigoU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -91,43 +83,39 @@ public class CrearUser extends javax.swing.JFrame {
             }
         });
 
-        Fondo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        Fondo.setForeground(new java.awt.Color(255, 255, 255));
-        Fondo.setMaximumSize(new java.awt.Dimension(400, 500));
-        Fondo.setMinimumSize(new java.awt.Dimension(400, 500));
-        Fondo.setPreferredSize(new java.awt.Dimension(400, 500));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
-                .addComponent(NomU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
-                .addComponent(ContraU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(ConContraseña)
-                .addGap(3, 3, 3)
-                .addComponent(ConContraU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(176, 176, 176)
-                .addComponent(Crear))
-            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(NomU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(ContraU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(ConContraseña)
+                        .addGap(3, 3, 3)
+                        .addComponent(ConContraU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(Crear)))
+                .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,8 +139,8 @@ public class CrearUser extends javax.swing.JFrame {
                     .addComponent(Codigo)
                     .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addComponent(Crear))
-            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Crear)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,7 +224,6 @@ public class CrearUser extends javax.swing.JFrame {
     private javax.swing.JPasswordField ContraU;
     private javax.swing.JLabel Contraseña;
     private javax.swing.JButton Crear;
-    public static javax.swing.JLabel Fondo;
     private javax.swing.JTextField NomU;
     private javax.swing.JLabel Nombre;
     private javax.swing.JLabel Titulo;

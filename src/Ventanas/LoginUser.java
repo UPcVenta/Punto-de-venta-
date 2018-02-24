@@ -26,11 +26,7 @@ public class LoginUser extends javax.swing.JFrame {
      * Creates new form CrearUsuario
      */
     public LoginUser() {
-        initComponents();
-        ImageIcon imagen1=new ImageIcon(getClass().getResource("/Imagenes/UPC.png"));
-        ImageIcon fondo1=new ImageIcon(imagen1.getImage().getScaledInstance(Imagen.getWidth(), Imagen.getHeight(), Image.SCALE_DEFAULT));
-        Imagen.setIcon(fondo1);
-        
+        initComponents();       
     }
 //
     /**
@@ -48,7 +44,7 @@ public class LoginUser extends javax.swing.JFrame {
         ContraI = new javax.swing.JPasswordField();
         CrearI = new javax.swing.JButton();
         IniciarI = new javax.swing.JButton();
-        Imagen = new javax.swing.JLabel();
+        Titulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -79,50 +75,53 @@ public class LoginUser extends javax.swing.JFrame {
             }
         });
 
+        Titulo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(0, 102, 102));
+        Titulo.setText("      Iniciar Sesion");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(NombreI)
                         .addGap(39, 39, 39)
-                        .addComponent(NombrI, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(Titulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ContraseñaI)
+                                    .addComponent(NombreI))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(NombrI, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ContraI, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ContraseñaI)
-                        .addGap(18, 18, 18)
-                        .addComponent(ContraI, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(CrearI)
-                        .addGap(18, 18, 18)
-                        .addComponent(IniciarI))))
+                        .addGap(58, 58, 58)
+                        .addComponent(IniciarI)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(NombreI))
-                    .addComponent(NombrI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(ContraseñaI))
+                .addContainerGap()
+                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NombrI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NombreI))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ContraseñaI)
                     .addComponent(ContraI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CrearI)
-                    .addComponent(IniciarI)))
+                    .addComponent(IniciarI))
+                .addGap(13, 13, 13))
         );
 
         pack();
@@ -144,11 +143,11 @@ public class LoginUser extends javax.swing.JFrame {
             pass=resultbusqueda(NombrI.getText());
             if(pass.equals(new String(ContraI.getPassword()))){
                 if(tipo==1){
-                    ServisMaster admin = new ServisMaster();
+                    Administrador admin = new Administrador();
                     admin.setVisible(true);
                 }
                 if(tipo==2){
-                    ServicioUser cajero = new ServicioUser();
+                    Cajero cajero = new Cajero();
                     cajero.setVisible(true);
                 }
             }else{
@@ -202,10 +201,10 @@ public class LoginUser extends javax.swing.JFrame {
     private javax.swing.JPasswordField ContraI;
     private javax.swing.JLabel ContraseñaI;
     private javax.swing.JButton CrearI;
-    private javax.swing.JLabel Imagen;
     private javax.swing.JButton IniciarI;
     private javax.swing.JTextField NombrI;
     private javax.swing.JLabel NombreI;
+    private javax.swing.JLabel Titulo;
     // End of variables declaration//GEN-END:variables
 
     private String resultbusqueda(String usuario) {

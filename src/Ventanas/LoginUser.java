@@ -5,7 +5,7 @@
  */
 package Ventanas;
 
-import VentanaServicio.ServisMaster;
+import java.awt.Image;
 import puntoventa.PuntoVenta;
 import java.sql.*;
 import java.sql.Connection;
@@ -13,17 +13,23 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Milh
  */
 public class LoginUser extends javax.swing.JFrame {
     PuntoVenta con;
+    int tipo;
     /**
      * Creates new form CrearUsuario
      */
     public LoginUser() {
         initComponents();
+        ImageIcon imagen1=new ImageIcon(getClass().getResource("/Imagenes/UPC.png"));
+        ImageIcon fondo1=new ImageIcon(imagen1.getImage().getScaledInstance(Imagen.getWidth(), Imagen.getHeight(), Image.SCALE_DEFAULT));
+        Imagen.setIcon(fondo1);
         
     }
 //
@@ -42,7 +48,7 @@ public class LoginUser extends javax.swing.JFrame {
         ContraI = new javax.swing.JPasswordField();
         CrearI = new javax.swing.JButton();
         IniciarI = new javax.swing.JButton();
-        imagen = new javax.swing.JLabel();
+        Imagen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -73,53 +79,50 @@ public class LoginUser extends javax.swing.JFrame {
             }
         });
 
-        imagen.setBackground(new java.awt.Color(255, 255, 255));
-        imagen.setText("Jjjajajaja ACA IBA UNA IMAGEN XD");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(53, 53, 53)
+                .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ContraseñaI)
-                            .addComponent(NombreI))
+                        .addComponent(NombreI)
+                        .addGap(39, 39, 39)
+                        .addComponent(NombrI, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ContraseñaI)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(NombrI, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                            .addComponent(ContraI)))
+                        .addComponent(ContraI, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(CrearI)
                         .addGap(18, 18, 18)
-                        .addComponent(IniciarI)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(IniciarI))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(NombreI)
-                            .addComponent(NombrI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ContraseñaI)
-                            .addComponent(ContraI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CrearI)
-                            .addComponent(IniciarI)))
+                        .addGap(3, 3, 3)
+                        .addComponent(NombreI))
+                    .addComponent(NombrI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(3, 3, 3)
+                        .addComponent(ContraseñaI))
+                    .addComponent(ContraI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CrearI)
+                    .addComponent(IniciarI)))
         );
 
         pack();
@@ -129,48 +132,33 @@ public class LoginUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         CrearUser Crear = new CrearUser();
-        Crear.regreso = 2;
         Crear.setVisible(true);
     }//GEN-LAST:event_CrearIMouseClicked
 
     private void IniciarIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IniciarIMouseClicked
         // TODO add your handling code here:
-       /* if(!NombrI.getText().equals("") && !ContraI.getText().equals("")){
-            con = new PuntoVenta();
-            ResultSet busqueda = con.executeSelect("SELECT Nombre, Contraseña, Tipo FROM usuarios");
+        String pass;
+        con = new PuntoVenta();
+        if(!NombrI.getText().equals("") && !new String(ContraI.getPassword()).equals("")){
             
+            pass=resultbusqueda(NombrI.getText());
+            if(pass.equals(new String(ContraI.getPassword()))){
+                if(tipo==1){
+                    ServisMaster admin = new ServisMaster();
+                    admin.setVisible(true);
+                }
+                if(tipo==2){
+                    ServicioUser cajero = new ServicioUser();
+                    cajero.setVisible(true);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Contraseñ Iconrrecta","Error Datos",JOptionPane.ERROR_MESSAGE);
+            }
             boolean userExists = false;
             boolean passCorrect = false;
             
-            try {
-                while(busqueda.next()) {
-                    String nombre = busqueda.getString("Nombre");
-                    String contrasenia = busqueda.getString("Contraseña");
-                    String tipo = busqueda.getString("Tipo");
-                    if(NombrI.getText().equals(nombre)) {
-                        userExists = true;
-                        if(ContraI.getText().equals(contrasenia)) {
-                            passCorrect = true;
-                            if(tipo.equals("1")){
-                                dispose();
-                                ServisMaster admin = new ServisMaster();
-                                admin.setVisible(true);
-                            }
-                            else{
-                                dispose();
-                                ServicioUser cajero = new ServicioUser();
-                                cajero.setVisible(true);
-                            }
-                            
-                        }
-                    }
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }*/
-       ServisMaster servis = new ServisMaster();
-       servis.setVisible(true);
+          
+        }
     }//GEN-LAST:event_IniciarIMouseClicked
 
 
@@ -214,9 +202,30 @@ public class LoginUser extends javax.swing.JFrame {
     private javax.swing.JPasswordField ContraI;
     private javax.swing.JLabel ContraseñaI;
     private javax.swing.JButton CrearI;
+    private javax.swing.JLabel Imagen;
     private javax.swing.JButton IniciarI;
     private javax.swing.JTextField NombrI;
     private javax.swing.JLabel NombreI;
-    public static javax.swing.JLabel imagen;
     // End of variables declaration//GEN-END:variables
+
+    private String resultbusqueda(String usuario) {
+        PreparedStatement carrito;
+        ResultSet busqueda;
+        String password=null;
+        String select="select Contraseña, Tipo FROM usuarios WHERE Nombre= ?";
+            try{
+             carrito=con.conexion().prepareStatement(select);
+             carrito.setString(1,usuario);
+             busqueda = carrito.executeQuery();
+           
+             if(busqueda.next()){
+                 password=busqueda.getString(1);
+                 tipo=busqueda.getInt(2);
+             }
+             
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Dato", JOptionPane.ERROR_MESSAGE);
+            }
+        return password;
+    }
 }

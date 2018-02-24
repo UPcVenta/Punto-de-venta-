@@ -5,12 +5,13 @@
  */
 package Ventanas;
 
-import VentanaServicio.ServisMaster;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import puntoventa.PuntoVenta;
 import javax.sql.*;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
@@ -18,12 +19,14 @@ import javax.swing.JOptionPane;
  */
 public class CrearUser extends javax.swing.JFrame {
     PuntoVenta con;
-    public int regreso; 
     /**
      * Creates new form CrearUser
      */
     public CrearUser() {
         initComponents();
+        ImageIcon imagen1=new ImageIcon(getClass().getResource("/Imagenes/fon.jpg"));
+        ImageIcon fondo1=new ImageIcon(imagen1.getImage().getScaledInstance(Fondo.getWidth(), Fondo.getHeight(), Image.SCALE_DEFAULT));
+        Fondo.setIcon(fondo1);
         //
     }
 
@@ -46,54 +49,39 @@ public class CrearUser extends javax.swing.JFrame {
         Codigo = new javax.swing.JLabel();
         CodigoU = new javax.swing.JPasswordField();
         Crear = new javax.swing.JButton();
-        salir = new javax.swing.JButton();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 500));
         setSize(new java.awt.Dimension(400, 500));
-        getContentPane().setLayout(null);
 
         Titulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Titulo.setText("Crear Usuarios");
-        getContentPane().add(Titulo);
-        Titulo.setBounds(80, 10, 260, 100);
 
         Nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Nombre.setForeground(new java.awt.Color(255, 255, 255));
         Nombre.setText("Nombre:");
-        getContentPane().add(Nombre);
-        Nombre.setBounds(20, 130, 90, 30);
 
         NomU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(NomU);
-        NomU.setBounds(200, 130, 150, 28);
 
         Contraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Contraseña.setForeground(new java.awt.Color(255, 255, 255));
         Contraseña.setText("Contraseña:");
-        getContentPane().add(Contraseña);
-        Contraseña.setBounds(20, 180, 100, 22);
 
         ContraU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(ContraU);
-        ContraU.setBounds(200, 180, 150, 28);
 
         ConContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        ConContraseña.setForeground(new java.awt.Color(255, 255, 255));
         ConContraseña.setText("Confirmar Contraseña:");
-        getContentPane().add(ConContraseña);
-        ConContraseña.setBounds(20, 230, 177, 22);
 
         ConContraU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(ConContraU);
-        ConContraU.setBounds(200, 230, 150, 28);
 
         Codigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Codigo.setForeground(new java.awt.Color(255, 255, 255));
         Codigo.setText("Codigo Administrador:");
-        getContentPane().add(Codigo);
-        Codigo.setBounds(20, 280, 180, 22);
 
         CodigoU.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        getContentPane().add(CodigoU);
-        CodigoU.setBounds(200, 280, 150, 28);
 
         Crear.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Crear.setText("Crear");
@@ -102,26 +90,70 @@ public class CrearUser extends javax.swing.JFrame {
                 CrearMouseClicked(evt);
             }
         });
-        getContentPane().add(Crear);
-        Crear.setBounds(300, 340, 73, 31);
-
-        salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        salir.setText("Salir");
-        salir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                salirMouseClicked(evt);
-            }
-        });
-        getContentPane().add(salir);
-        salir.setBounds(30, 345, 80, 30);
 
         Fondo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Fondo.setForeground(new java.awt.Color(255, 255, 255));
         Fondo.setMaximumSize(new java.awt.Dimension(400, 500));
         Fondo.setMinimumSize(new java.awt.Dimension(400, 500));
         Fondo.setPreferredSize(new java.awt.Dimension(400, 500));
-        getContentPane().add(Fondo);
-        Fondo.setBounds(-16, -16, 420, 510);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addComponent(NomU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
+                .addComponent(ContraU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(ConContraseña)
+                .addGap(3, 3, 3)
+                .addComponent(ConContraU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addComponent(Crear))
+            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NomU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Contraseña)
+                    .addComponent(ContraU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ConContraseña)
+                    .addComponent(ConContraU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Codigo)
+                    .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addComponent(Crear))
+            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -160,19 +192,6 @@ public class CrearUser extends javax.swing.JFrame {
         ConContraU.setText("");
         CodigoU.setText("");
     }//GEN-LAST:event_CrearMouseClicked
-
-    private void salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salirMouseClicked
-        // TODO add your handling code here:
-        if (regreso == 1){
-            ServisMaster servis = new ServisMaster();
-            servis.setVisible(true);
-        }
-        else {
-            LoginUser Login = new LoginUser();
-            Login.setVisible(true);
-        }
-        this.dispose();
-    }//GEN-LAST:event_salirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -221,7 +240,6 @@ public class CrearUser extends javax.swing.JFrame {
     private javax.swing.JTextField NomU;
     private javax.swing.JLabel Nombre;
     private javax.swing.JLabel Titulo;
-    private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 
     private LoginUser LoginUser() {

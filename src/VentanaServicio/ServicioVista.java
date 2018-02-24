@@ -5,6 +5,8 @@
  */
 package VentanaServicio;
 
+import Ventanas.*;
+
 /**
  *
  * @author Usuario
@@ -32,8 +34,8 @@ public class ServicioVista extends javax.swing.JFrame {
         SingIn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        Tabla = new javax.swing.JTable();
+        fondo = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,12 +80,11 @@ public class ServicioVista extends javax.swing.JFrame {
         SingIn.setBounds(760, 500, 221, 38);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Bienvenidos vilchis");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(240, 50, 513, 76);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -91,18 +92,26 @@ public class ServicioVista extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cantidad", "Codigo del producto", "Nombre del producto", "Precio"
             }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(0, 180, 1020, 280);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMagen/xd.jpg"))); // NOI18N
-        jLabel2.setMinimumSize(new java.awt.Dimension(800, 600));
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 0, 1020, 660);
+        fondo.setBackground(new java.awt.Color(0, 0, 0));
+        fondo.setMinimumSize(new java.awt.Dimension(800, 600));
+        getContentPane().add(fondo);
+        fondo.setBounds(0, 0, 1020, 660);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -114,8 +123,9 @@ public class ServicioVista extends javax.swing.JFrame {
     private void SingInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SingInMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        /*LoginUser Login = new LoginUser();
-        Login.setVisible(true);*/
+        LoginUser Login;
+        Login = new LoginUser();
+        Login.setVisible(true);
     }//GEN-LAST:event_SingInMouseClicked
 
     /**
@@ -155,11 +165,11 @@ public class ServicioVista extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton SingIn;
+    private javax.swing.JTable Tabla;
+    public static javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

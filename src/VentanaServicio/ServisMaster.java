@@ -5,6 +5,8 @@
  */
 package VentanaServicio;
 
+import Ventanas.*;
+
 /**
  *
  * @author Usuario
@@ -28,7 +30,7 @@ public class ServisMaster extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         BusquedaPrducto = new javax.swing.JButton();
         txtescaner = new javax.swing.JTextField();
@@ -46,7 +48,7 @@ public class ServisMaster extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(950, 700));
         getContentPane().setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -54,16 +56,15 @@ public class ServisMaster extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cantidad", "Codigo del producto", "Nombre del producto", "Precio"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(0, 170, 970, 390);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Bienvenido Administrador Usuario");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(20, 30, 870, 90);
@@ -87,8 +88,6 @@ public class ServisMaster extends javax.swing.JFrame {
         });
         getContentPane().add(Salir);
         Salir.setBounds(10, 580, 59, 25);
-
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMagen/xd.jpg"))); // NOI18N
         getContentPane().add(fondo);
         fondo.setBounds(0, 0, 970, 630);
 
@@ -109,6 +108,9 @@ public class ServisMaster extends javax.swing.JFrame {
         UsuarioNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 UsuarioNuevoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                UsuarioNuevoMousePressed(evt);
             }
         });
         jMenu1.add(UsuarioNuevo);
@@ -135,21 +137,28 @@ public class ServisMaster extends javax.swing.JFrame {
     private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        /*LoginUser Login = new LoginUser();
-        Login.setVisible(true);*/
+        LoginUser Login = new LoginUser();
+        Login.setVisible(true);
     }//GEN-LAST:event_SalirMouseClicked
 
     private void UsuarioNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuarioNuevoMouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        /*CrearUser user = new CrearUser();
-        user.setVisible(true);*/
+        
     }//GEN-LAST:event_UsuarioNuevoMouseClicked
 
     private void AddMoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMoreMouseClicked
         // TODO add your handling code here:
         
     }//GEN-LAST:event_AddMoreMouseClicked
+
+    private void UsuarioNuevoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuarioNuevoMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+        CrearUser user;
+        user = new CrearUser();
+        user.regreso = 1;
+        user.setVisible(true);
+    }//GEN-LAST:event_UsuarioNuevoMousePressed
 
     /**
      * @param args the command line arguments
@@ -190,14 +199,14 @@ public class ServisMaster extends javax.swing.JFrame {
     private javax.swing.JMenuItem AddMore;
     private javax.swing.JButton BusquedaPrducto;
     private javax.swing.JButton Salir;
+    private javax.swing.JTable Tabla;
     private javax.swing.JMenuItem UsuarioNuevo;
-    private javax.swing.JLabel fondo;
+    public static javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtescaner;
     // End of variables declaration//GEN-END:variables
 }

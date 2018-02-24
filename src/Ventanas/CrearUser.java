@@ -5,6 +5,7 @@
  */
 package Ventanas;
 
+import VentanaServicio.ServisMaster;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class CrearUser extends javax.swing.JFrame {
     PuntoVenta con;
+    public int regreso; 
     /**
      * Creates new form CrearUser
      */
@@ -44,6 +46,7 @@ public class CrearUser extends javax.swing.JFrame {
         Codigo = new javax.swing.JLabel();
         CodigoU = new javax.swing.JPasswordField();
         Crear = new javax.swing.JButton();
+        salir = new javax.swing.JButton();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,13 +55,11 @@ public class CrearUser extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         Titulo.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        Titulo.setForeground(new java.awt.Color(255, 255, 255));
         Titulo.setText("Crear Usuarios");
         getContentPane().add(Titulo);
         Titulo.setBounds(80, 10, 260, 100);
 
         Nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Nombre.setForeground(new java.awt.Color(255, 255, 255));
         Nombre.setText("Nombre:");
         getContentPane().add(Nombre);
         Nombre.setBounds(20, 130, 90, 30);
@@ -68,7 +69,6 @@ public class CrearUser extends javax.swing.JFrame {
         NomU.setBounds(200, 130, 150, 28);
 
         Contraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Contraseña.setForeground(new java.awt.Color(255, 255, 255));
         Contraseña.setText("Contraseña:");
         getContentPane().add(Contraseña);
         Contraseña.setBounds(20, 180, 100, 22);
@@ -78,7 +78,6 @@ public class CrearUser extends javax.swing.JFrame {
         ContraU.setBounds(200, 180, 150, 28);
 
         ConContraseña.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        ConContraseña.setForeground(new java.awt.Color(255, 255, 255));
         ConContraseña.setText("Confirmar Contraseña:");
         getContentPane().add(ConContraseña);
         ConContraseña.setBounds(20, 230, 177, 22);
@@ -88,7 +87,6 @@ public class CrearUser extends javax.swing.JFrame {
         ConContraU.setBounds(200, 230, 150, 28);
 
         Codigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Codigo.setForeground(new java.awt.Color(255, 255, 255));
         Codigo.setText("Codigo Administrador:");
         getContentPane().add(Codigo);
         Codigo.setBounds(20, 280, 180, 22);
@@ -105,11 +103,20 @@ public class CrearUser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Crear);
-        Crear.setBounds(160, 340, 73, 31);
+        Crear.setBounds(300, 340, 73, 31);
+
+        salir.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        salir.setText("Salir");
+        salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salirMouseClicked(evt);
+            }
+        });
+        getContentPane().add(salir);
+        salir.setBounds(30, 345, 80, 30);
 
         Fondo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Fondo.setForeground(new java.awt.Color(255, 255, 255));
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fon.jpg"))); // NOI18N
         Fondo.setMaximumSize(new java.awt.Dimension(400, 500));
         Fondo.setMinimumSize(new java.awt.Dimension(400, 500));
         Fondo.setPreferredSize(new java.awt.Dimension(400, 500));
@@ -153,6 +160,19 @@ public class CrearUser extends javax.swing.JFrame {
         ConContraU.setText("");
         CodigoU.setText("");
     }//GEN-LAST:event_CrearMouseClicked
+
+    private void salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salirMouseClicked
+        // TODO add your handling code here:
+        if (regreso == 1){
+            ServisMaster servis = new ServisMaster();
+            servis.setVisible(true);
+        }
+        else {
+            LoginUser Login = new LoginUser();
+            Login.setVisible(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_salirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -201,6 +221,7 @@ public class CrearUser extends javax.swing.JFrame {
     private javax.swing.JTextField NomU;
     private javax.swing.JLabel Nombre;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 
     private LoginUser LoginUser() {

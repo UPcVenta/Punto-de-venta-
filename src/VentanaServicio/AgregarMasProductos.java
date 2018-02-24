@@ -5,17 +5,14 @@
  */
 package VentanaServicio;
 
-import java.sql.*;
-import puntoventa.PuntoVenta;
-
 /**
  *
  * @author Usuario
  */
 public class AgregarMasProductos extends javax.swing.JFrame {
-    PuntoVenta con;
+
     /**
-     * Creates new form AgregarMasProductos
+     * Creates new form AgregarNuevosProductos
      */
     public AgregarMasProductos() {
         initComponents();
@@ -30,48 +27,28 @@ public class AgregarMasProductos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        txtCodigo = new javax.swing.JTextField();
-        txtnombre = new javax.swing.JTextField();
-        txtprecio = new javax.swing.JTextField();
-        txtcantidad = new javax.swing.JTextField();
-        guardar = new javax.swing.JButton();
-        fondo = new javax.swing.JLabel();
+        Tabla = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtCod = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
+        GuardarProducto = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        salir = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
         Salir = new javax.swing.JMenuItem();
 
+        jMenuItem2.setText("jMenuItem2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1024, 649));
-        setMinimumSize(new java.awt.Dimension(1000, 690));
+        setMaximumSize(new java.awt.Dimension(1030, 678));
+        setMinimumSize(new java.awt.Dimension(1030, 678));
+        setSize(new java.awt.Dimension(1030, 678));
         getContentPane().setLayout(null);
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre del producto");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(50, 130, 130, 30);
-
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Codigo del producto");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(50, 80, 120, 30);
-
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Precio del producto");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(50, 180, 120, 30);
-
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Cantidad el producto");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(50, 226, 120, 30);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,100 +56,72 @@ public class AgregarMasProductos extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Cantidad", "Codigo del producto", "Nombre del producto", "Precio"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(0, 390, 1010, 240);
-        getContentPane().add(txtCodigo);
-        txtCodigo.setBounds(190, 90, 210, 22);
+        jScrollPane1.setBounds(0, 322, 1020, 330);
 
-        txtnombre.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Codigo de barras ó nombre del producto");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(60, 80, 240, 30);
+        getContentPane().add(txtCod);
+        txtCod.setBounds(320, 80, 380, 30);
+        getContentPane().add(txtCantidad);
+        txtCantidad.setBounds(320, 142, 380, 30);
+
+        GuardarProducto.setText("Guardar");
+        GuardarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnombreActionPerformed(evt);
+                GuardarProductoActionPerformed(evt);
             }
         });
-        getContentPane().add(txtnombre);
-        txtnombre.setBounds(190, 140, 210, 22);
+        getContentPane().add(GuardarProducto);
+        GuardarProducto.setBounds(720, 265, 90, 40);
 
-        txtprecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtprecioActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtprecio);
-        txtprecio.setBounds(190, 180, 210, 22);
-        getContentPane().add(txtcantidad);
-        txtcantidad.setBounds(190, 230, 210, 22);
+        jLabel3.setText("Cantidad de productos");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(60, 136, 150, 30);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1040, 0);
 
-        guardar.setText("Guardar");
-        guardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                guardarMouseClicked(evt);
-            }
-        });
-        getContentPane().add(guardar);
-        guardar.setBounds(700, 170, 110, 50);
-
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMagen/xd.jpg"))); // NOI18N
-        getContentPane().add(fondo);
-        fondo.setBounds(0, 0, 1010, 650);
-
-        salir.setText("File");
-        salir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                salirMouseClicked(evt);
-            }
-        });
+        jMenu1.setText("File");
 
         Salir.setText("Salir");
-        salir.add(Salir);
+        Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SalirMouseClicked(evt);
+            }
+        });
+        jMenu1.add(Salir);
 
-        jMenuBar1.add(salir);
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
+    private void GuardarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarProductoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnombreActionPerformed
+    }//GEN-LAST:event_GuardarProductoActionPerformed
 
-    private void txtprecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprecioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtprecioActionPerformed
-
-    private void salirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salirMouseClicked
+    private void SalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirMouseClicked
         // TODO add your handling code here:
         this.dispose();
         ServisMaster servis = new ServisMaster();
         servis.setVisible(true);
-    }//GEN-LAST:event_salirMouseClicked
-
-    private void guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guardarMouseClicked
-        // TODO add your handling code here:
-        con = new PuntoVenta();
-        Connection reg = con.conexion();
-        
-        int x=Integer.parseInt(txtcantidad.getText());
-        double y = Double.parseDouble(txtprecio.getText());
-        try{
-            PreparedStatement pst = reg.prepareStatement("INSERT INTO productos(Codigo, Nombre, Cantidad, Precio) VALUES(?, ?, ?, ?)");
-            pst.setString(1, txtCodigo.getText());
-            pst.setString(2, txtnombre.getText());
-            pst.setInt(3, x);
-            pst.setDouble(4, 20);
-            pst.executeUpdate();
-            
-            txtnombre.setText("");
-        }
-        catch(SQLException e){
-            //System.out.print(e.getMessage());
-        }
-    }//GEN-LAST:event_guardarMouseClicked
+    }//GEN-LAST:event_SalirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -200,6 +149,9 @@ public class AgregarMasProductos extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AgregarMasProductos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -210,21 +162,17 @@ public class AgregarMasProductos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton GuardarProducto;
     private javax.swing.JMenuItem Salir;
-    public static javax.swing.JLabel fondo;
-    private javax.swing.JButton guardar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTable Tabla;
+    public static javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JMenu salir;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtcantidad;
-    private javax.swing.JTextField txtnombre;
-    private javax.swing.JTextField txtprecio;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCod;
     // End of variables declaration//GEN-END:variables
-
 }

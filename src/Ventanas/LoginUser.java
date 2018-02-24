@@ -5,6 +5,7 @@
  */
 package Ventanas;
 
+import VentanaServicio.ServisMaster;
 import puntoventa.PuntoVenta;
 import java.sql.*;
 import java.sql.Connection;
@@ -73,7 +74,7 @@ public class LoginUser extends javax.swing.JFrame {
         });
 
         imagen.setBackground(new java.awt.Color(255, 255, 255));
-        imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/UPC.png"))); // NOI18N
+        imagen.setText("Jjjajajaja ACA IBA UNA IMAGEN XD");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,6 +129,7 @@ public class LoginUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         CrearUser Crear = new CrearUser();
+        Crear.regreso = 2;
         Crear.setVisible(true);
     }//GEN-LAST:event_CrearIMouseClicked
 
@@ -167,6 +169,8 @@ public class LoginUser extends javax.swing.JFrame {
                 Logger.getLogger(LoginUser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }*/
+       ServisMaster servis = new ServisMaster();
+       servis.setVisible(true);
     }//GEN-LAST:event_IniciarIMouseClicked
 
 

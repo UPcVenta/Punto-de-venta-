@@ -17,10 +17,18 @@ public class PuntoVenta {
        try{
            Class.forName("com.mysql.jdbc.Driver");
            conectar=DriverManager.getConnection("jdbc:mysql://localhost/puntoventa", "root", "");
+           System.out.println("Coneccion establecida..");
        }
        catch(ClassNotFoundException | SQLException e) {
            System.out.print(e.getMessage());
        }
        return conectar;
    } 
+   public void desconectar(){
+        conectar = null;
+        if (conectar == null){
+            System.out.println("Coneccion terminada..");
+    
+        }
+    }
 }

@@ -5,6 +5,8 @@
  */
 package VentanaServicio;
 
+import Ventanas.*;
+
 /**
  *
  * @author Usuario
@@ -30,7 +32,7 @@ public class ServicioUser extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         BuscarID = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
         Total = new javax.swing.JButton();
         NameUser = new javax.swing.JLabel();
         txtescaner = new javax.swing.JTextField();
@@ -49,7 +51,7 @@ public class ServicioUser extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1024, 649));
         getContentPane().setLayout(null);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,7 +59,7 @@ public class ServicioUser extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Cantidad", "Codigo del producto", "NOmbre del producto", "Precio"
+                "Cantidad", "Codigo del producto", "Nombre del producto", "Precio"
             }
         ) {
             Class[] types = new Class [] {
@@ -68,7 +70,7 @@ public class ServicioUser extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Tabla);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(0, 180, 1020, 292);
@@ -83,10 +85,9 @@ public class ServicioUser extends javax.swing.JFrame {
         Total.setBounds(850, 490, 129, 42);
 
         NameUser.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
-        NameUser.setForeground(new java.awt.Color(255, 255, 255));
         NameUser.setText("Bienvenido Usuario");
         getContentPane().add(NameUser);
-        NameUser.setBounds(230, 40, 588, 51);
+        NameUser.setBounds(280, 40, 450, 51);
 
         txtescaner.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -111,7 +112,7 @@ public class ServicioUser extends javax.swing.JFrame {
         getContentPane().add(BusquedaID);
         BusquedaID.setBounds(630, 140, 171, 25);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMagen/xd.jpg"))); // NOI18N
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         getContentPane().add(jLabel2);
         jLabel2.setBounds(0, 0, 1060, 570);
 
@@ -160,8 +161,8 @@ public class ServicioUser extends javax.swing.JFrame {
     private void CerraSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerraSesionMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        /*LoginUser Login = new LoginUser();
-        Login.setVisible(true);*/
+        LoginUser Login = new LoginUser();
+        Login.setVisible(true);
     }//GEN-LAST:event_CerraSesionMouseClicked
 
     private void TotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TotalMouseClicked
@@ -209,13 +210,13 @@ public class ServicioUser extends javax.swing.JFrame {
     private javax.swing.JButton BusquedaID;
     private javax.swing.JMenuItem CerraSesion;
     private javax.swing.JLabel NameUser;
+    private javax.swing.JTable Tabla;
     private javax.swing.JButton Total;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    public static javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtescaner;
     // End of variables declaration//GEN-END:variables
 }

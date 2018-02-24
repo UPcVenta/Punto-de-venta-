@@ -29,30 +29,25 @@ public class ServicioUser extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         BuscarID = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        NameUser = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        Total = new javax.swing.JButton();
+        NameUser = new javax.swing.JLabel();
         txtescaner = new javax.swing.JTextField();
         BusquedaID = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        CerraSesion = new javax.swing.JMenuItem();
 
         jLabel1.setText("Buscar por ID");
 
         BuscarID.setText("Buscar por ID");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
-
-        NameUser.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
-        NameUser.setText("Bienvenido Usuario");
-
-        jButton1.setText("Precio total");
+        setMaximumSize(new java.awt.Dimension(1024, 649));
+        setMinimumSize(new java.awt.Dimension(1024, 649));
+        getContentPane().setLayout(null);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,6 +70,24 @@ public class ServicioUser extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(0, 180, 1020, 292);
+
+        Total.setText("Precio total");
+        Total.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TotalMouseClicked(evt);
+            }
+        });
+        getContentPane().add(Total);
+        Total.setBounds(850, 490, 129, 42);
+
+        NameUser.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        NameUser.setForeground(new java.awt.Color(255, 255, 255));
+        NameUser.setText("Bienvenido Usuario");
+        getContentPane().add(NameUser);
+        NameUser.setBounds(230, 40, 588, 51);
+
         txtescaner.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtescanerKeyPressed(evt);
@@ -86,6 +99,8 @@ public class ServicioUser extends javax.swing.JFrame {
                 txtescanerKeyTyped(evt);
             }
         });
+        getContentPane().add(txtescaner);
+        txtescaner.setBounds(820, 140, 155, 22);
 
         BusquedaID.setText("Escanear o Busqueda ID");
         BusquedaID.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,66 +108,26 @@ public class ServicioUser extends javax.swing.JFrame {
                 BusquedaIDMouseClicked(evt);
             }
         });
+        getContentPane().add(BusquedaID);
+        BusquedaID.setBounds(630, 140, 171, 25);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(BusquedaID)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtescaner, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(261, Short.MAX_VALUE)
-                .addComponent(NameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(208, 208, 208))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(NameUser, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtescaner)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BusquedaID)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMagen/xd.jpg"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 1060, 570);
 
         jMenu1.setText("Opciones");
 
-        jMenuItem1.setText("Cerrar sesión");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("Salir");
-        jMenu1.add(jMenuItem2);
+        CerraSesion.setText("Cerrar sesión");
+        CerraSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerraSesionMouseClicked(evt);
+            }
+        });
+        jMenu1.add(CerraSesion);
 
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -181,6 +156,18 @@ public class ServicioUser extends javax.swing.JFrame {
             System.out.println("No ah ingresado el codigo para buscar el articulo");
         }
     }//GEN-LAST:event_BusquedaIDMouseClicked
+
+    private void CerraSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerraSesionMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        /*LoginUser Login = new LoginUser();
+        Login.setVisible(true);*/
+    }//GEN-LAST:event_CerraSesionMouseClicked
+
+    private void TotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TotalMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_TotalMouseClicked
 
     /**
      * @param args the command line arguments
@@ -220,14 +207,13 @@ public class ServicioUser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BuscarID;
     private javax.swing.JButton BusquedaID;
+    private javax.swing.JMenuItem CerraSesion;
     private javax.swing.JLabel NameUser;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Total;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtescaner;

@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package puntoventa;
-import Ventanas.AgregarProducto;
 import Ventanas.Inventario;
 import java.sql.*;
 import java.util.logging.Level;

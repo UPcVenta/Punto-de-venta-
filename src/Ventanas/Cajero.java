@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import puntoventa.PuntoVenta;
 
@@ -26,6 +27,7 @@ public class Cajero extends javax.swing.JFrame {
      */
     public Cajero() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -246,7 +248,6 @@ public class Cajero extends javax.swing.JFrame {
             Ventanas.Inventario.TabInventario.setModel(modelo);
         } 
         catch (SQLException ex) {
-            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         inventario.setVisible(true);

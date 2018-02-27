@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import puntoventa.PuntoVenta;
@@ -23,11 +24,14 @@ import puntoventa.PuntoVenta;
 public class AdmiAlmacen extends javax.swing.JFrame {
     PuntoVenta con = new PuntoVenta();
     Connection reg = con.conexion();
+    private int actualizar;
     /**
      * Creates new form AdmiAlmacen
      */
     public AdmiAlmacen() {
+        actualizar = 0;
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
     
     public void MostrarTab(String valor){
@@ -59,7 +63,6 @@ public class AdmiAlmacen extends javax.swing.JFrame {
             }
             TabInventario.setModel(modelo);
         } catch (SQLException ex) {
-            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     /**
@@ -235,6 +238,11 @@ public class AdmiAlmacen extends javax.swing.JFrame {
         jMenu1.setText("Opciones");
 
         Return.setText("Regresar");
+        Return.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ReturnMousePressed(evt);
+            }
+        });
         jMenu1.add(Return);
 
         jMenuBar1.add(jMenu1);
@@ -261,10 +269,8 @@ public class AdmiAlmacen extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(MostrarInventario))
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,8 +287,8 @@ public class AdmiAlmacen extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -291,30 +297,36 @@ public class AdmiAlmacen extends javax.swing.JFrame {
     
     private void GuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GuardarMouseClicked
         // TODO add your handling code here:
-        if(!NomProducto.getText().equals("") && !CodiProduc.getText().equals("") && !CantiProduc.getText().equals("") && !PreProduc.getText().equals("")){
-            int x=Integer.parseInt(CantiProduc.getText());
-            double y = Double.parseDouble(PreProduc.getText());
-            try{
-                PreparedStatement pst = reg.prepareStatement("INSERT INTO productos(Codigo, Nombre, Cantidad, Precio) VALUES(?, ?, ?, ?)");
-                pst.setString(1, CodiProduc.getText());
-                pst.setString(2, NomProducto.getText());
-                pst.setInt(3, x);
-                pst.setDouble(4, y);
-                pst.executeUpdate();
-                MostrarTab("");
+       if (actualizar != 1){
+           if(!NomProducto.getText().equals("") && !CodiProduc.getText().equals("") && !CantiProduc.getText().equals("") && !PreProduc.getText().equals("")){
+                int x=Integer.parseInt(CantiProduc.getText());
+                double y = Double.parseDouble(PreProduc.getText());
+                try{
+                    PreparedStatement pst = reg.prepareStatement("INSERT INTO productos(Codigo, Nombre, Cantidad, Precio) VALUES(?, ?, ?, ?)");
+                    pst.setString(1, CodiProduc.getText());
+                    pst.setString(2, NomProducto.getText());
+                    pst.setInt(3, x);
+                    pst.setDouble(4, y);
+                    pst.executeUpdate();
+                    MostrarTab("");
 
+                }
+                catch(SQLException e){
+                    System.out.print(e.getMessage());
+                }
             }
-            catch(SQLException e){
-                System.out.print(e.getMessage());
+            else {
+                JOptionPane.showMessageDialog(null, "Por Favor llene todos los campos");
             }
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Por Favor llene todos los campos");
-        }
-        CodiProduc.setText("");
-        NomProducto.setText("");
-        PreProduc.setText("");
-        CantiProduc.setText("");
+            CodiProduc.setText("");
+            NomProducto.setText("");
+            PreProduc.setText("");
+            CantiProduc.setText("");
+       }
+       else {
+           JOptionPane.showMessageDialog(null,"No puede guardar mientras se modifica un producto", "Error",JOptionPane.ERROR_MESSAGE);
+       }
+            
     }//GEN-LAST:event_GuardarMouseClicked
 
     private void MostrarInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MostrarInventarioMouseClicked
@@ -325,29 +337,42 @@ public class AdmiAlmacen extends javax.swing.JFrame {
     
     private void ActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ActualizarMouseClicked
         // TODO add your handling code here:
-        try{
-            PreparedStatement pst = reg.prepareStatement("UPDATE productos SET Nombre='"+NomProducto.getText()+"',Precio='"+ PreProduc.getText()+"',Cantidad='"+CantiProduc.getText()+"' WHERE Codigo='"+CodiProduc.getText()+"'");
-            pst.executeUpdate();
-            MostrarTab("");
+        if (actualizar == 1){
+            try{
+                PreparedStatement pst = reg.prepareStatement("UPDATE productos SET Nombre='"+NomProducto.getText()+"',Precio='"+ PreProduc.getText()+"',Cantidad='"+CantiProduc.getText()+"' WHERE Codigo='"+CodiProduc.getText()+"'");
+                pst.executeUpdate();
+                MostrarTab("");
+
+            }
+            catch(SQLException e){
+                System.out.print(e.getMessage());
+            }
+            CodiProduc.setText("");
+            NomProducto.setText("");
+            PreProduc.setText("");
+            CantiProduc.setText("");
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Necesita modificar un producto para poder actualizar", "Error",JOptionPane.ERROR_MESSAGE);
+        }
+        actualizar=0;
             
-        }
-        catch(SQLException e){
-            System.out.print(e.getMessage());
-        }
-        CodiProduc.setText("");
-        NomProducto.setText("");
-        PreProduc.setText("");
-        CantiProduc.setText("");
     }//GEN-LAST:event_ActualizarMouseClicked
 
     private void BuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuscarMouseClicked
         // TODO add your handling code here:
-        MostrarTab(Buscador.getText());
-        Buscador.setText("");
+        if (!Buscador.getText().equals("")){
+            MostrarTab(Buscador.getText());
+            Buscador.setText("");
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"Porfavor ingrese el codigo de barra para buscar un producto");
+        }
     }//GEN-LAST:event_BuscarMouseClicked
 
     private void ModificarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificarMousePressed
         // TODO add your handling code here:
+        actualizar = 1;
         int fila = TabInventario.getSelectedRow();
         if (fila>=0){
             CodiProduc.setText(TabInventario.getValueAt(fila, 0).toString());
@@ -376,6 +401,13 @@ public class AdmiAlmacen extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_EliminarMousePressed
+
+    private void ReturnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+        Administrador admi = new Administrador();
+        admi.setVisible(true);
+    }//GEN-LAST:event_ReturnMousePressed
 
     /**
      * @param args the command line arguments

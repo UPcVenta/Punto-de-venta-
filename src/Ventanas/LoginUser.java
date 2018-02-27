@@ -222,7 +222,7 @@ public class LoginUser extends javax.swing.JFrame {
                  tipo=busqueda.getInt(2);
              }
              
-            }catch(Exception e){
+            }catch(SQLException e){
                 JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de Dato", JOptionPane.ERROR_MESSAGE);
             }
         return password;

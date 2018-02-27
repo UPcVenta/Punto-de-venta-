@@ -140,7 +140,7 @@ public class Inventario extends javax.swing.JFrame {
             }
             TabInventario.setModel(modelo);
         } catch (SQLException ex) {
-            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }//GEN-LAST:event_ActualizarMouseClicked
 

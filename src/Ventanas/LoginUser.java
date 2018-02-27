@@ -5,15 +5,9 @@
  */
 package Ventanas;
 
-import java.awt.Image;
 import puntoventa.PuntoVenta;
 import java.sql.*;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
@@ -130,8 +124,9 @@ public class LoginUser extends javax.swing.JFrame {
     private void CrearIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearIMouseClicked
         // TODO add your handling code here:
         this.dispose();
-        CrearUser Crear = new CrearUser();
-        Crear.setVisible(true);
+        CrearUser mostrar = new CrearUser();
+        mostrar.regresar = 2;
+        mostrar.setVisible(true);
     }//GEN-LAST:event_CrearIMouseClicked
 
     private void IniciarIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IniciarIMouseClicked
@@ -145,19 +140,24 @@ public class LoginUser extends javax.swing.JFrame {
                 if(tipo==1){
                     Administrador admin = new Administrador();
                     admin.setVisible(true);
+                    
                 }
                 if(tipo==2){
                     Cajero cajero = new Cajero();
                     cajero.setVisible(true);
-                }
+                } 
             }else{
-                JOptionPane.showMessageDialog(null,"Contraseñ Iconrrecta","Error Datos",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Contraseña Inconrrecta","Error Datos",JOptionPane.ERROR_MESSAGE);
             }
             boolean userExists = false;
-            boolean passCorrect = false;
-            
-          
+            boolean passCorrect = false;   
+            this.dispose();
         }
+        
+        else {
+            JOptionPane.showMessageDialog(null,"Falto llenar los campos", "Error",JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_IniciarIMouseClicked
 
 

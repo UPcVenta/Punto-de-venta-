@@ -5,12 +5,11 @@
  */
 package Ventanas;
 
+import puntoventa.PuntoVenta;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import puntoventa.PuntoVenta;
-import javax.sql.*;
+import java.sql.SQLException; 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
@@ -19,12 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class CrearUser extends javax.swing.JFrame {
     PuntoVenta con;
+    public int regresar;
     /**
      * Creates new form CrearUser
      */
     public CrearUser() {
         initComponents();
-        //
     }
 
     /**
@@ -46,6 +45,7 @@ public class CrearUser extends javax.swing.JFrame {
         Codigo = new javax.swing.JLabel();
         CodigoU = new javax.swing.JPasswordField();
         Crear = new javax.swing.JButton();
+        Return = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 500));
@@ -83,6 +83,14 @@ public class CrearUser extends javax.swing.JFrame {
             }
         });
 
+        Return.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Return.setText("Regresar");
+        Return.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReturnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,12 +117,15 @@ public class CrearUser extends javax.swing.JFrame {
                         .addComponent(ConContraU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(Crear)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Return)
+                                .addGap(178, 178, 178)
+                                .addComponent(Crear))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
@@ -138,9 +149,11 @@ public class CrearUser extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Codigo)
                     .addComponent(CodigoU, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(Crear)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Crear)
+                    .addComponent(Return))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,6 +193,19 @@ public class CrearUser extends javax.swing.JFrame {
         ConContraU.setText("");
         CodigoU.setText("");
     }//GEN-LAST:event_CrearMouseClicked
+
+    private void ReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnMouseClicked
+        // TODO add your handling code here:
+        if (regresar == 1){
+            Administrador admi = new Administrador();
+            admi.setVisible(true);
+        }
+        else {
+            LoginUser log = new LoginUser();
+            log.setVisible(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_ReturnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -226,10 +252,8 @@ public class CrearUser extends javax.swing.JFrame {
     private javax.swing.JButton Crear;
     private javax.swing.JTextField NomU;
     private javax.swing.JLabel Nombre;
+    private javax.swing.JButton Return;
     private javax.swing.JLabel Titulo;
     // End of variables declaration//GEN-END:variables
 
-    private LoginUser LoginUser() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

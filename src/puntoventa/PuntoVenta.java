@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package puntoventa;
+import Ventanas.AgregarProducto;
+import Ventanas.Inventario;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,11 +17,11 @@ import java.sql.*;
  */
 public class PuntoVenta {
    //pinche puto
-   Connection conectar = null;
-   public Connection conexion(){
+    Connection conectar = null;
+    public Connection conexion(){
        try{
            Class.forName("com.mysql.jdbc.Driver");
-           conectar=DriverManager.getConnection("jdbc:mysql://localhost/puntoventa", "root", "");
+           conectar=DriverManager.getConnection("jdbc:mysql://192.168.0.24/puntoventa", "UPChiapas", "");
            System.out.println("Coneccion establecida..");
        }
        catch(ClassNotFoundException | SQLException e) {
@@ -24,11 +29,12 @@ public class PuntoVenta {
        }
        return conectar;
    } 
-   public void desconectar(){
+    public void desconectar(){
         conectar = null;
         if (conectar == null){
             System.out.println("Coneccion terminada..");
     
         }
     }
+    
 }

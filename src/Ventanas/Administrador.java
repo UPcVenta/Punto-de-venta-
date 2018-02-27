@@ -5,17 +5,29 @@
  */
 package Ventanas;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import puntoventa.PuntoVenta;
+
 /**
  *
  * @author Milh
  */
 public class Administrador extends javax.swing.JFrame {
-
+    PuntoVenta con = new PuntoVenta();
+    Connection reg = con.conexion();
     /**
      * Creates new form ServicioUser
      */
     public Administrador() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -27,6 +39,8 @@ public class Administrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         Titulo = new javax.swing.JLabel();
         Inventario = new javax.swing.JButton();
         Cant = new javax.swing.JLabel();
@@ -35,14 +49,32 @@ public class Administrador extends javax.swing.JFrame {
         Producto = new javax.swing.JTextField();
         Agregar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
-        Tabla = new javax.swing.JScrollPane();
-        TablaData = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         Total = new javax.swing.JLabel();
         Pagar = new javax.swing.JTextField();
         Cobrar = new javax.swing.JButton();
         Crear = new javax.swing.JButton();
         Produc = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaAdmi = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        closeUsr = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,40 +111,15 @@ public class Administrador extends javax.swing.JFrame {
         Eliminar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Eliminar.setText("Eliminar");
 
-        Tabla.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        Tabla.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        Tabla.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        Tabla.setInheritsPopupMenu(true);
-
-        TablaData.setBackground(new java.awt.Color(153, 153, 153));
-        TablaData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "CODIGO", "CANTIDAD", "NOMBRE", "TOTAL", "PRECIO UNITARIO"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        TablaData.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        TablaData.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
-            public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
-                TablaDataVetoableChange(evt);
-            }
-        });
-        Tabla.setViewportView(TablaData);
-
         Total.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Total.setText("Total a pagar:");
 
         Pagar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        Pagar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PagarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,53 +166,83 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
 
+        TablaAdmi.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(TablaAdmi);
+
+        jMenu1.setText("Opciones");
+
+        closeUsr.setText("Cerrar Sesión");
+        closeUsr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                closeUsrMousePressed(evt);
+            }
+        });
+        jMenu1.add(closeUsr);
+
+        jMenuItem1.setText("Crear Usuario");
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Inventario");
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(163, 163, 163)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Cant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Cantidad))
-                            .addGap(77, 77, 77)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(NomProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Producto))
-                            .addGap(50, 50, 50)
-                            .addComponent(Agregar)
-                            .addGap(35, 35, 35)
-                            .addComponent(Eliminar))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(67, 67, 67)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(Cobrar))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(176, 176, 176)
-                            .addComponent(Titulo)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Produc)
-                        .addGap(68, 68, 68)
-                        .addComponent(Crear)
-                        .addGap(86, 86, 86)
-                        .addComponent(Inventario)
-                        .addGap(55, 55, 55)))
-                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(76, 76, 76)
+                                .addComponent(Cobrar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Cant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(77, 77, 77)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(NomProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(50, 50, 50)
+                                        .addComponent(Agregar)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(Eliminar))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(Produc)
+                                        .addGap(49, 49, 49)
+                                        .addComponent(Crear)
+                                        .addGap(86, 86, 86)
+                                        .addComponent(Inventario)
+                                        .addGap(42, 42, 42)))))
+                        .addGap(31, 31, 31))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Titulo)
+                        .addGap(131, 131, 131))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(Titulo)
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Inventario)
                     .addComponent(Crear)
@@ -220,21 +257,17 @@ public class Administrador extends javax.swing.JFrame {
                     .addComponent(Producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Agregar)
                     .addComponent(Eliminar))
-                .addGap(54, 54, 54)
-                .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Cobrar))
+                    .addComponent(Cobrar)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void TablaDataVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_TablaDataVetoableChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TablaDataVetoableChange
 
     private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
         // TODO add your handling code here:
@@ -242,8 +275,36 @@ public class Administrador extends javax.swing.JFrame {
 
     private void InventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventarioMouseClicked
         // TODO add your handling code here:
-        Inventario mostrar = new Inventario();
-        mostrar.setVisible(true);
+        this.dispose();
+        AdmiAlmacen admiAl = new AdmiAlmacen();
+        
+        String [] datos = new String [4];
+        
+        DefaultTableModel modelo= new DefaultTableModel();
+        modelo.addColumn("CODIGO");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("CANTIDAD");
+        modelo.addColumn("PRECIO UNITARIO $");
+        Ventanas.AdmiAlmacen.TabInventario.setModel(modelo);
+        
+        try {
+            Statement stmt = reg.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM productos");
+            while(rs.next()){
+                for(int i = 0; i < 4; i++)
+                    datos[i] = rs.getString(i + 1);
+                /*datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);*/
+                modelo.addRow(datos);
+            }
+            Ventanas.AdmiAlmacen.TabInventario.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        admiAl.setVisible(true);
+        
     }//GEN-LAST:event_InventarioMouseClicked
 
     private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
@@ -252,7 +313,9 @@ public class Administrador extends javax.swing.JFrame {
 
     private void CrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearMouseClicked
         // TODO add your handling code here:
+        this.dispose();
         CrearUser mostrar = new CrearUser();
+        mostrar.regresar = 1;
         mostrar.setVisible(true);
     }//GEN-LAST:event_CrearMouseClicked
 
@@ -261,6 +324,18 @@ public class Administrador extends javax.swing.JFrame {
         AgregarProducto mostrar = new AgregarProducto();
         mostrar.setVisible(true);
     }//GEN-LAST:event_ProducMouseClicked
+
+    private void PagarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PagarKeyPressed
+        // TODO add your handling code here:
+        Pagar.setEditable(false);
+    }//GEN-LAST:event_PagarKeyPressed
+
+    private void closeUsrMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeUsrMousePressed
+        // TODO add your handling code here:
+        this.dispose();
+        LoginUser log = new LoginUser ();
+        log.setVisible(true);
+    }//GEN-LAST:event_closeUsrMousePressed
 
     /**
      * @param args the command line arguments
@@ -316,10 +391,17 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JTextField Pagar;
     private javax.swing.JButton Produc;
     private javax.swing.JTextField Producto;
-    private javax.swing.JScrollPane Tabla;
-    private javax.swing.JTable TablaData;
+    private javax.swing.JTable TablaAdmi;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Total;
+    private javax.swing.JMenuItem closeUsr;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

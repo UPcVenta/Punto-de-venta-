@@ -5,17 +5,31 @@
  */
 package Ventanas;
 
+import puntoventa.PuntoVenta;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Milh
  */
 public class AgregarProducto extends javax.swing.JFrame {
-
+    PuntoVenta con = new PuntoVenta();
+    Connection reg = con.conexion();
     /**
      * Creates new form AgregarProducto
      */
     public AgregarProducto() {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -27,21 +41,197 @@ public class AgregarProducto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Titulo = new javax.swing.JLabel();
+        Nombre = new javax.swing.JLabel();
+        Codigo = new javax.swing.JLabel();
+        Precio = new javax.swing.JLabel();
+        Cantidad = new javax.swing.JLabel();
+        NomProducto = new javax.swing.JTextField();
+        CodiProduc = new javax.swing.JTextField();
+        PreProduc = new javax.swing.JTextField();
+        CantiProduc = new javax.swing.JTextField();
+        Guardar = new javax.swing.JButton();
+        Inventario = new javax.swing.JButton();
+        Return = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        Titulo.setFont(new java.awt.Font("Cambria", 0, 60)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(0, 102, 102));
+        Titulo.setText("Agregar al Inventario");
+
+        Nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Nombre.setText("Nombre del Producto:");
+
+        Codigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Codigo.setText("Codigo del Producto:");
+
+        Precio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Precio.setText("Precio del Producto:");
+
+        Cantidad.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        Cantidad.setText("Cantidad del Producto:");
+
+        NomProducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        CodiProduc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        PreProduc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        CantiProduc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        Guardar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Guardar.setText("Guardar");
+        Guardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GuardarMouseClicked(evt);
+            }
+        });
+
+        Inventario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Inventario.setText("Ver Inventario");
+        Inventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                InventarioMouseClicked(evt);
+            }
+        });
+
+        Return.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Return.setText("Regresar");
+        Return.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReturnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Titulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Return)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                .addComponent(Inventario)
+                                .addGap(39, 39, 39)
+                                .addComponent(Guardar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Cantidad)
+                                    .addComponent(Precio, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Codigo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Nombre, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(NomProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                                    .addComponent(CodiProduc)
+                                    .addComponent(PreProduc, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CantiProduc, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(Titulo)
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Nombre)
+                    .addComponent(NomProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Codigo)
+                    .addComponent(CodiProduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Precio)
+                    .addComponent(PreProduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Cantidad)
+                    .addComponent(CantiProduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Guardar)
+                    .addComponent(Inventario)
+                    .addComponent(Return))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void GuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GuardarMouseClicked
+        // TODO add your handling code here:
+        
+        if(!NomProducto.getText().equals("") && !CodiProduc.getText().equals("") && !CantiProduc.getText().equals("") && !PreProduc.getText().equals("")){
+            int x=Integer.parseInt(CantiProduc.getText());
+            double y = Double.parseDouble(PreProduc.getText());
+            try{
+                PreparedStatement pst = reg.prepareStatement("INSERT INTO productos(Codigo, Nombre, Cantidad, Precio) VALUES(?, ?, ?, ?)");
+                pst.setString(1, CodiProduc.getText());
+                pst.setString(2, NomProducto.getText());
+                pst.setInt(3, x);
+                pst.setDouble(4, y);
+                pst.executeUpdate();
+            }
+            catch(SQLException e){
+                System.out.print(e.getMessage());
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Por Favor llene todos los campos");
+        }
+        CodiProduc.setText("");
+        NomProducto.setText("");
+        PreProduc.setText("");
+        CantiProduc.setText("");
+    }//GEN-LAST:event_GuardarMouseClicked
+
+    private void InventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventarioMouseClicked
+        // TODO add your handling code here:
+        Inventario inventario = new Inventario();
+        inventario.tipoV = 2;
+        String [] datos = new String [4];
+        
+        DefaultTableModel modelo= new DefaultTableModel();
+        modelo.addColumn("CODIGO");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("CANTIDAD");
+        modelo.addColumn("PRECIO UNITARIO $");
+        Ventanas.Inventario.TabInventario.setModel(modelo);
+        
+        try {
+            Statement stmt = reg.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM productos");
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                modelo.addRow(datos);
+            }
+            Ventanas.Inventario.TabInventario.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        inventario.setVisible(true);
+    }//GEN-LAST:event_InventarioMouseClicked
+
+    private void ReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        Administrador admi = new Administrador();
+        admi.setVisible(true);
+    }//GEN-LAST:event_ReturnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +269,17 @@ public class AgregarProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CantiProduc;
+    private javax.swing.JLabel Cantidad;
+    private javax.swing.JTextField CodiProduc;
+    private javax.swing.JLabel Codigo;
+    private javax.swing.JButton Guardar;
+    private javax.swing.JButton Inventario;
+    private javax.swing.JTextField NomProducto;
+    private javax.swing.JLabel Nombre;
+    private javax.swing.JTextField PreProduc;
+    private javax.swing.JLabel Precio;
+    private javax.swing.JButton Return;
+    private javax.swing.JLabel Titulo;
     // End of variables declaration//GEN-END:variables
 }

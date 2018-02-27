@@ -5,12 +5,22 @@
  */
 package Ventanas;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import puntoventa.PuntoVenta;
+
 /**
  *
  * @author Milh
  */
 public class Cajero extends javax.swing.JFrame {
-
+    PuntoVenta con = new PuntoVenta();
+    Connection reg = con.conexion();
     /**
      * Creates new form ServicioUser
      */
@@ -28,7 +38,6 @@ public class Cajero extends javax.swing.JFrame {
     private void initComponents() {
 
         Titulo = new javax.swing.JLabel();
-        Inventario = new javax.swing.JButton();
         Cant = new javax.swing.JLabel();
         Cantidad = new javax.swing.JTextField();
         NomProducto = new javax.swing.JLabel();
@@ -39,27 +48,18 @@ public class Cajero extends javax.swing.JFrame {
         TablaData = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         Total = new javax.swing.JLabel();
-        Pagar = new javax.swing.JTextField();
+        TotalPagar = new javax.swing.JLabel();
         Cobrar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        CloseUser = new javax.swing.JMenuItem();
+        InventarioPV = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Titulo.setFont(new java.awt.Font("Cambria", 0, 70)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 0, 0));
         Titulo.setText("Caja Registradora");
-
-        Inventario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        Inventario.setText("Inventario");
-        Inventario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                InventarioMouseClicked(evt);
-            }
-        });
-        Inventario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InventarioActionPerformed(evt);
-            }
-        });
 
         Cant.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Cant.setText("Cantidad:");
@@ -88,17 +88,9 @@ public class Cajero extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CODIGO", "CANTIDAD", "NOMBRE", "TOTAL", "PRECIO UNITARIO"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         TablaData.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         TablaData.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
             public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
@@ -110,7 +102,7 @@ public class Cajero extends javax.swing.JFrame {
         Total.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Total.setText("Total a pagar:");
 
-        Pagar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        TotalPagar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,68 +111,83 @@ public class Cajero extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(Total)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(298, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Total)
-                    .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(TotalPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(47, 47, 47))
         );
 
         Cobrar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Cobrar.setText("Cobrar");
+
+        jMenu1.setText("opciones");
+
+        CloseUser.setText("Cerrar seción");
+        CloseUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                CloseUserMousePressed(evt);
+            }
+        });
+        jMenu1.add(CloseUser);
+
+        InventarioPV.setText("Inventario");
+        InventarioPV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                InventarioPVMousePressed(evt);
+            }
+        });
+        jMenu1.add(InventarioPV);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(Titulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(163, 163, 163)
+                            .addGap(96, 96, 96)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(Cant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Cantidad))
+                                .addComponent(Cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(77, 77, 77)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(NomProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Producto))
+                                .addComponent(Producto, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(50, 50, 50)
                             .addComponent(Agregar)
                             .addGap(35, 35, 35)
                             .addComponent(Eliminar))
+                        .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(67, 67, 67)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Tabla, javax.swing.GroupLayout.PREFERRED_SIZE, 783, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(Cobrar))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(176, 176, 176)
-                            .addComponent(Titulo)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Inventario)
-                        .addGap(55, 55, 55)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(29, 29, 29)
+                            .addComponent(Cobrar))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(Titulo)
-                .addGap(41, 41, 41)
-                .addComponent(Inventario)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Cant)
                     .addComponent(NomProducto))
@@ -206,15 +213,44 @@ public class Cajero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TablaDataVetoableChange
 
-    private void InventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InventarioActionPerformed
+    private void CloseUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseUserMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InventarioActionPerformed
+        this.dispose();
+        LoginUser log = new LoginUser ();
+        log.setVisible(true);
+    }//GEN-LAST:event_CloseUserMousePressed
 
-    private void InventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventarioMouseClicked
+    private void InventarioPVMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InventarioPVMousePressed
         // TODO add your handling code here:
-        Inventario mostrar = new Inventario();
-        mostrar.setVisible(true);
-    }//GEN-LAST:event_InventarioMouseClicked
+        Inventario inventario = new Inventario();
+        inventario.tipoV = 3;
+        String [] datos = new String [4];
+        
+        DefaultTableModel modelo= new DefaultTableModel();
+        modelo.addColumn("CODIGO");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("CANTIDAD");
+        modelo.addColumn("PRECIO UNITARIO $");
+        Ventanas.Inventario.TabInventario.setModel(modelo);
+        
+        try {
+            Statement stmt = reg.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM productos");
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                modelo.addRow(datos);
+            }
+            Ventanas.Inventario.TabInventario.setModel(modelo);
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(AgregarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        inventario.setVisible(true);
+    }//GEN-LAST:event_InventarioPVMousePressed
 
     /**
      * @param args the command line arguments
@@ -286,16 +322,19 @@ public class Cajero extends javax.swing.JFrame {
     private javax.swing.JButton Agregar;
     private javax.swing.JLabel Cant;
     private javax.swing.JTextField Cantidad;
+    private javax.swing.JMenuItem CloseUser;
     private javax.swing.JButton Cobrar;
     private javax.swing.JButton Eliminar;
-    private javax.swing.JButton Inventario;
+    private javax.swing.JMenuItem InventarioPV;
     private javax.swing.JLabel NomProducto;
-    private javax.swing.JTextField Pagar;
     private javax.swing.JTextField Producto;
     private javax.swing.JScrollPane Tabla;
     private javax.swing.JTable TablaData;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Total;
+    private javax.swing.JLabel TotalPagar;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

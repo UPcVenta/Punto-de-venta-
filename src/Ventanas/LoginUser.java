@@ -21,7 +21,8 @@ public class LoginUser extends javax.swing.JFrame {
      * Creates new form CrearUsuario
      */
     public LoginUser() {
-        initComponents();       
+        initComponents();  
+        this.setResizable(false);
     }
 //
     /**

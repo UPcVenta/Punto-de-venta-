@@ -32,6 +32,7 @@ public class AdmiAlmacen extends javax.swing.JFrame {
         actualizar = 0;
         initComponents();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
     }
     
     public void MostrarTab(String valor){
@@ -410,8 +411,8 @@ public class AdmiAlmacen extends javax.swing.JFrame {
     private void ReturnMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnMousePressed
         // TODO add your handling code here:
         this.dispose();
-        Administrador admi = new Administrador();
-        admi.setVisible(true);
+        Administrador adm = new Administrador();
+        adm.setVisible(true);
     }//GEN-LAST:event_ReturnMousePressed
 
     /**

@@ -30,6 +30,7 @@ public class Inventario extends javax.swing.JFrame {
         initComponents();
         
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
          
     }
     /**
@@ -146,12 +147,7 @@ public class Inventario extends javax.swing.JFrame {
 
     private void ReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnMouseClicked
         // TODO add your handling code here:
-        if (tipoV == 2){
-            this.dispose();
-        }
-        else if (tipoV == 3){
-            this.dispose(); 
-        }
+        this.dispose();
     }//GEN-LAST:event_ReturnMouseClicked
 
     /**

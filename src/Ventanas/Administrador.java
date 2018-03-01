@@ -6,6 +6,7 @@
 package Ventanas;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,7 +27,8 @@ public class Administrador extends javax.swing.JFrame {
     public static DefaultTableModel model;
     private String total;
     private double Totalp;
-    private int contador;
+    private int contador, actualizar;
+    public int conn;
     /**
      * Creates new form ServicioUser
      */
@@ -34,8 +36,55 @@ public class Administrador extends javax.swing.JFrame {
         initComponents();
         model= (DefaultTableModel)TablaAdmi.getModel();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
     }
+    public void mostrartab(){
+        String MostrarBD, valor = Producto.getText(), cant = Cantidad.getText(), totalp;
+        String [] datos = new String [4];
+        double cantidad= Double.parseDouble(cant), pre, tot;
+        double desBD;
+        
+        if (valor.equals("")){
+            MostrarBD = "SELECT * FROM productos";
+        }
+        else{
+            MostrarBD = "SELECT * FROM productos WHERE Codigo='"+valor+"'";
+        }
 
+        try {
+            Statement stmt = reg.createStatement();
+            ResultSet rs = stmt.executeQuery(MostrarBD);
+            
+            while(rs.next()){
+                if(valor.equals(rs.getString(1))){
+                    pre= Double.parseDouble(rs.getString(4));
+                    desBD = Double.parseDouble(rs.getString(3));
+                    if (desBD<cantidad){
+                        JOptionPane.showMessageDialog(null,"La cantidad que puso excede a los productos existentes, solo quedan: "+ desBD);   
+                    }
+                    else{
+                        Totalp = Totalp + (pre * cantidad);
+                        tot= pre * cantidad;
+                        totalp= String.valueOf(Totalp);
+                        total= String.valueOf(tot);
+                        TotalPagar.setText(totalp);
+                        datos[0]=rs.getString(1);
+                        datos[1]=rs.getString(2);
+                        datos[2]=cant;
+                        datos[3]=total;
+                        model.addRow(datos);
+                        desBD=desBD-cantidad;
+                        cant= String.valueOf(desBD);
+                        PreparedStatement pst = reg.prepareStatement("UPDATE productos SET Cantidad='"+cant+"' WHERE Codigo='"+Producto.getText()+"'");
+                        pst.executeUpdate();
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,6 +192,11 @@ public class Administrador extends javax.swing.JFrame {
 
         Cobrar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         Cobrar.setText("Cobrar");
+        Cobrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CobrarMouseClicked(evt);
+            }
+        });
 
         TablaAdmi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -272,7 +326,7 @@ public class Administrador extends javax.swing.JFrame {
 
     private void AlmacenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlmacenMousePressed
         // TODO add your handling code here:
-        this.dispose();
+        
         AdmiAlmacen admiAl = new AdmiAlmacen();
         
         String [] datos = new String [4];
@@ -288,68 +342,76 @@ public class Administrador extends javax.swing.JFrame {
             Statement stmt = reg.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM productos");
             while(rs.next()){
-                for(int i = 0; i < 4; i++)
-                    datos[i] = rs.getString(i + 1);
-                /*datos[0]=rs.getString(1);
+                datos[0]=rs.getString(1);
                 datos[1]=rs.getString(2);
                 datos[2]=rs.getString(3);
-                datos[3]=rs.getString(4);*/
+                datos[3]=rs.getString(4);
                 modelo.addRow(datos);
             }
             Ventanas.AdmiAlmacen.TabInventario.setModel(modelo);
         } catch (SQLException ex) {
             
         }
+        this.dispose();
         admiAl.setVisible(true);
     }//GEN-LAST:event_AlmacenMousePressed
 
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
         // TODO add your handling code here:
-        String MostrarBD, valor = Producto.getText(), cant = Cantidad.getText();
-        String [] datos = new String [4];
-        double cantidad= Double.parseDouble(cant), pre;
-        
- 
-        if (valor.equals("")){
-            MostrarBD = "SELECT * FROM productos";
+        if (!Producto.getText().equals("") && !Cantidad.getText().equals("") && Cantidad.getText().compareTo("0")>=0 && Cantidad.getText().compareTo(":")<0){
+            mostrartab();
+            Cantidad.setText("");
+            Producto.setText("");
+            actualizar =1;
         }
         else{
-            MostrarBD = "SELECT * FROM productos WHERE Codigo='"+valor+"'";
+            if (Cantidad.getText().compareTo("/")<=0 || Cantidad.getText().compareTo(":")>=0){
+                JOptionPane.showMessageDialog(null,"porfavor ingresar solamente numero en cantidad");
+            }
+            else{
+            JOptionPane.showMessageDialog(null,"Porfavor llene los espacios en blanco");
+            }
         }
         
-        try {
-            Statement stmt = reg.createStatement();
-            ResultSet rs = stmt.executeQuery(MostrarBD);
-            
-            while(rs.next()){
-                pre= Double.parseDouble(rs.getString(4));
-                Totalp = Totalp + (pre * cantidad);
-                total= String.valueOf(Totalp);
-                TotalPagar.setText(total);
-                datos[0]=rs.getString(1);
-                datos[1]=rs.getString(2);
-                datos[2]=cant;
-                datos[3]=total;
-                model.addRow(datos);
-            }
-             
-        } catch (SQLException ex) {
-        }
-        Cantidad.setText("");
-        Producto.setText("");
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
         if (contador==1){
             int fila = TablaAdmi.getSelectedRow();
-            String MostrarBD, valor = Producto.getText(), cant;
-            String [] datos = new String [4];
-            cant=TablaAdmi.getValueAt(fila, 3).toString();
-            double cantidad= Double.parseDouble(cant);
-          
-                    
-            Totalp = Totalp - cantidad;
+            String MostrarBD, valor, totalp;
+            String pretab, tab;
+            pretab=TablaAdmi.getValueAt(fila, 3).toString();
+            valor = TablaAdmi.getValueAt(fila, 0).toString();
+            tab = TablaAdmi.getValueAt(fila, 2).toString();
+            double preciotab= Double.parseDouble(pretab), pre, tot, cantidad = Double.parseDouble(tab);
+            
+            double desBD;
+ 
+            if (valor.equals("")){
+                MostrarBD = "SELECT * FROM productos";
+            }
+            else{
+                MostrarBD = "SELECT * FROM productos WHERE Codigo='"+valor+"'";
+            }
+            
+            try {
+                Statement stmt = reg.createStatement();
+                ResultSet rs = stmt.executeQuery(MostrarBD);
+
+                while(rs.next()){
+                    desBD = Double.parseDouble(rs.getString(3));
+                    desBD=desBD+cantidad;
+                    tab= String.valueOf(desBD);
+                }
+                System.out.println(valor+ ", "+ tab+ ", ");
+                PreparedStatement pst = reg.prepareStatement("UPDATE productos SET Cantidad='"+tab+"' WHERE Codigo='"+valor+"'");
+                pst.executeUpdate();
+            }
+            catch (SQLException ex) {
+            }
+            
+            Totalp = Totalp - preciotab;
             total= String.valueOf(Totalp);
             TotalPagar.setText(total);
             model.removeRow(TablaAdmi.getSelectedRow());
@@ -363,6 +425,21 @@ public class Administrador extends javax.swing.JFrame {
         // TODO add your handling code here:
         contador=1;
     }//GEN-LAST:event_TablaAdmiMousePressed
+
+    private void CobrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CobrarMouseClicked
+        // TODO add your handling code here:
+        if (actualizar == 1){
+            JOptionPane.showMessageDialog(null,"El total a pagar es de: $"+ TotalPagar.getText());
+            TotalPagar.setText("");
+            for (int i = model.getRowCount() -1; i >= 0; i--){
+                model.removeRow(i);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"No hay productos a cobrar");
+        }
+        actualizar=0;
+    }//GEN-LAST:event_CobrarMouseClicked
 
     /**
      * @param args the command line arguments

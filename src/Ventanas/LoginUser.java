@@ -9,6 +9,7 @@ import puntoventa.PuntoVenta;
 import java.sql.*;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Milh
@@ -144,6 +145,7 @@ public class LoginUser extends javax.swing.JFrame {
                 }
                 if(tipo==2){
                     Cajero cajero = new Cajero();
+                    DefaultTableModel mod= new DefaultTableModel();                   
                     cajero.setVisible(true);
                 } 
             }else{

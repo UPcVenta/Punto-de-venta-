@@ -8,6 +8,7 @@ import Ventanas.Inventario;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,20 +21,21 @@ public class PuntoVenta {
     public Connection conexion(){
        try{
            Class.forName("com.mysql.jdbc.Driver");
-           conectar=DriverManager.getConnection("jdbc:mysql://192.168.0.24/puntoventa", "UPChiapas", "");
+           conectar=DriverManager.getConnection("jdbc:mysql://localhost/puntoventa", "root", "");
            System.out.println("Coneccion establecida..");
        }
        catch(ClassNotFoundException | SQLException e) {
-           System.out.print(e.getMessage());
+           JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de coneccion", JOptionPane.ERROR_MESSAGE);
        }
        return conectar;
    } 
-    public void desconectar(){
+   /* public void desconectar(){
         conectar = null;
         if (conectar == null){
             System.out.println("Coneccion terminada..");
     
         }
-    }
+    }*/
+    
     
 }

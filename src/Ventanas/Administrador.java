@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import puntoventa.PuntoVenta;
 
@@ -22,12 +23,16 @@ import puntoventa.PuntoVenta;
 public class Administrador extends javax.swing.JFrame {
     PuntoVenta con = new PuntoVenta();
     Connection reg = con.conexion();
+    public static DefaultTableModel model;
+    private String total;
+    private double Totalp;
+    private int contador;
     /**
      * Creates new form ServicioUser
      */
     public Administrador() {
         initComponents();
-        //TotalPago.setText("$"+ "Variable");
+        model= (DefaultTableModel)TablaAdmi.getModel();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
@@ -51,7 +56,7 @@ public class Administrador extends javax.swing.JFrame {
         Eliminar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         Total = new javax.swing.JLabel();
-        TotalPago = new javax.swing.JLabel();
+        TotalPagar = new javax.swing.JLabel();
         Cobrar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaAdmi = new javax.swing.JTable();
@@ -92,14 +97,24 @@ public class Administrador extends javax.swing.JFrame {
 
         Agregar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Agregar.setText("Agregar");
+        Agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AgregarMouseClicked(evt);
+            }
+        });
 
         Eliminar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
 
         Total.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Total.setText("Total a pagar:");
 
-        TotalPago.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        TotalPagar.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,7 +124,7 @@ public class Administrador extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(Total)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TotalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(157, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -118,7 +133,7 @@ public class Administrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(TotalPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TotalPagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(1, 1, 1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -134,9 +149,22 @@ public class Administrador extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Codigo", "Nombre", "Cantidad", "Precio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        TablaAdmi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TablaAdmiMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(TablaAdmi);
 
         Opciones.setText("Opciones Administrador");
@@ -275,6 +303,67 @@ public class Administrador extends javax.swing.JFrame {
         admiAl.setVisible(true);
     }//GEN-LAST:event_AlmacenMousePressed
 
+    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
+        // TODO add your handling code here:
+        String MostrarBD, valor = Producto.getText(), cant = Cantidad.getText();
+        String [] datos = new String [4];
+        double cantidad= Double.parseDouble(cant), pre;
+        
+ 
+        if (valor.equals("")){
+            MostrarBD = "SELECT * FROM productos";
+        }
+        else{
+            MostrarBD = "SELECT * FROM productos WHERE Codigo='"+valor+"'";
+        }
+        
+        try {
+            Statement stmt = reg.createStatement();
+            ResultSet rs = stmt.executeQuery(MostrarBD);
+            
+            while(rs.next()){
+                pre= Double.parseDouble(rs.getString(4));
+                Totalp = Totalp + (pre * cantidad);
+                total= String.valueOf(Totalp);
+                TotalPagar.setText(total);
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=cant;
+                datos[3]=total;
+                model.addRow(datos);
+            }
+             
+        } catch (SQLException ex) {
+        }
+        Cantidad.setText("");
+        Producto.setText("");
+    }//GEN-LAST:event_AgregarMouseClicked
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // TODO add your handling code here:
+        if (contador==1){
+            int fila = TablaAdmi.getSelectedRow();
+            String MostrarBD, valor = Producto.getText(), cant;
+            String [] datos = new String [4];
+            cant=TablaAdmi.getValueAt(fila, 3).toString();
+            double cantidad= Double.parseDouble(cant);
+          
+                    
+            Totalp = Totalp - cantidad;
+            total= String.valueOf(Totalp);
+            TotalPagar.setText(total);
+            model.removeRow(TablaAdmi.getSelectedRow());
+        } 
+        else{
+            JOptionPane.showMessageDialog(null,"Porfavor seleccione un producto a eliminar");
+        }
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void TablaAdmiMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaAdmiMousePressed
+        // TODO add your handling code here:
+        contador=1;
+    }//GEN-LAST:event_TablaAdmiMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -328,10 +417,10 @@ public class Administrador extends javax.swing.JFrame {
     private javax.swing.JLabel NomProducto;
     private javax.swing.JMenu Opciones;
     private javax.swing.JTextField Producto;
-    private javax.swing.JTable TablaAdmi;
+    public static javax.swing.JTable TablaAdmi;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Total;
-    private javax.swing.JLabel TotalPago;
+    private javax.swing.JLabel TotalPagar;
     private javax.swing.JMenuItem closeUsr;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
